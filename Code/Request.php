@@ -139,17 +139,25 @@ else if($type == 'CreateTransaction'){
 		$isValid = false;
 
 	if($isValid){
+		//get existing wallet info base on name
 		$wallet = (new WalletDAO())->GetWalletByName($name);
 		if(is_array($wallet) && $wallet['statusCode'] == 200 && intval($wallet['data']->ID) > 0)
-		{
-			$hash_check_str = $wallet['data']->HASH_KEY . '.' . $name . '.' . $type . '.' . strval($amount) . '.' . $reference . '.' . $_POST['hash_check'];
+		{//found wallet
+			//build hash_check base on 'hash_key.name.type.amount.reference.hash_check'
+			$hash_check_str = md5($wallet['data']->HASH_KEY . '.' . $name . '.' . $type . '.' . strval($amount) . '.' . $reference . '.' . $_POST['hash_check']);
+			
+			///TODO: need to consider about this check ???
+			///If hash_check doesn’t match MD5(hash_key.name.type.amount.reference.hash_check), code 404 must be sent without any details. 
+			///from what I see, origin 'hash_check is come from $_POST that user input, then we md5 encrypt with input by combine itself with other params and hash_key get from wallt table base on 'name'
+			///this is create transaction method. So, what should we check here???
+
 			$obj = new Transaction();
 			$obj->WALLET_ID = $wallet['data']->ID;
 			$obj->NAME = $name;
 			$obj->TYPE = $type;
 			$obj->AMOUNT = $amount;
 			$obj->REFERENCE = $reference;
-			$obj->HASH_CHECK = md5($hash_check_str);
+			$obj->HASH_CHECK = $hash_check_str;
 			
 			$response = (new TransactionDAO())->CreateTransaction($obj);
 
