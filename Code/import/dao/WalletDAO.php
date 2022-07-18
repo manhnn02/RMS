@@ -26,7 +26,7 @@ class WalletDAO {
 
 			return intval($ID);
 		}
-		catch(Exception $e){
+		catch(\Throwable $e){
 			return 0;
 		}
 	}
@@ -46,7 +46,7 @@ class WalletDAO {
 	   		endforeach;
 			return array("statusCode" => 200, "data" => $resultSet);
 		}
-		catch(Exception $e){
+		catch(\Throwable $e){
 			return array("statusCode" => 403, "data" => null);
 		}
 	}
@@ -72,7 +72,7 @@ class WalletDAO {
 				return array("statusCode" => 403, "data" => null);
 			}
 		}
-		catch(Exception $e){
+		catch(\Throwable $e){
 			return array("statusCode" => 403, "data" => null);
 		}
 	}
@@ -98,7 +98,7 @@ class WalletDAO {
 				return array("statusCode" => 403, "data" => null);
 			}
 		}
-		catch(Exception $e){
+		catch(\Throwable $e){
 			return array("statusCode" => 403, "data" => null);
 		}
 	}
@@ -117,7 +117,7 @@ class WalletDAO {
 			
 			return $this->GetWalletByID($insertedID);
 		}
-		catch(Exception $e){
+		catch(\Throwable $e){
 			return array("statusCode" => 403, "data" => null);
 		}
 	}
@@ -130,7 +130,7 @@ class WalletDAO {
 			else
 				return array("statusCode" => 200, "data" => ["id" => $id]);
 		}
-		catch(Exception $e){
+		catch(\Throwable $e){
 			return array("statusCode" => 403, "data" => null);
 		}
 	}
@@ -147,7 +147,7 @@ class WalletDAO {
 				return array("statusCode" => 403, "data" => null);
 			}
 		}
-		catch(Exception $e){
+		catch(\Throwable $e){
 			return array("statusCode" => 403, "data" => null);
 		}
 	}

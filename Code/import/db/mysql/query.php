@@ -17,7 +17,7 @@ class Query extends mysql{
     public function query($sql) {
         $this->resource_id = mysqli_query($this->connection, $sql);
         if(!$this->resource_id){
-            return false;
+            throw new Exception("Error Processing Request", 1);
         }
         return $this;
     }

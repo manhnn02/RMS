@@ -32,7 +32,7 @@ class TransactionDAO {
 	   		endforeach;
 			return array("statusCode" => 200, "data" => $resultSet);
 		}
-		catch(Exception $e){
+		catch(\Throwable $e){
 			return array("statusCode" => 403, "data" => null);
 		}
 	}
@@ -47,7 +47,7 @@ class TransactionDAO {
 			
 			return $this->GetTransactionByID($insertedID);
 		}
-		catch(Exception $e){
+		catch(\Throwable $e){
 			return array("statusCode" => 403, "data" => null);
 		}
 	}
@@ -76,7 +76,7 @@ class TransactionDAO {
 				return array("statusCode" => 403, "data" => null);
 			}
 		}
-		catch(Exception $e){
+		catch(\Throwable $e){
 			return array("statusCode" => 403, "data" => null);
 		}
 	}
